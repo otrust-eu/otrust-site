@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; frame-ancestors 'none';">
+    <meta name="referrer" content="no-referrer">
+    <meta name="description" content="OTRUST - a distributed protocol for verifiable truth. With cryptographically signed claims, traceability and open source.">
+    <meta name="theme-color" content="#181c20">
+    <title>OTRUST – Distributed Truth Protocol</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent1: #ffb357;
+            --accent2: #ff6e6e;
+            --bg-dark: #181c20;
+            --bg-darker: #141719;
+            --bg-glass: rgba(35,39,46,0.75);
+            --glass-blur: 16px;
+            --otrust-dark: #5C2E21;
+            --otrust-light-orange: #F8C78E;
+            --otrust-orange: #F5A657;
+            --otrust-red-orange: #E76134;
+            --otrust-dark-red: #B43A21;
+        }
+        html, body {
+            margin: 0; padding: 0;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #23272e 100%);
+            color: #f3f3f3;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.25;
+        }
+        .hero-bg-decor {
+            position: absolute;
+            top: -120px; left: -120px;
+            width: 420px; height: 420px;
+            background: radial-gradient(circle, var(--accent1) 0%, transparent 70%);
+            filter: blur(80px);
+            opacity: 0.5;
+            z-index: 0;
+        }
+        .hero-bg-decor2 {
+            position: absolute;
+            bottom: -120px; right: -120px;
+            width: 420px; height: 420px;
+            background: radial-gradient(circle, var(--accent2) 0%, transparent 70%);
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: 0;
+        }
+        .hero-glass {
+            background: var(--bg-glass);
+            border-radius: 36px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+            padding: 64px 36px 48px 36px;
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1.5px solid rgba(255,255,255,0.08);
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 24px;
+            z-index: 1;
+            animation: fadeIn 1.2s cubic-bezier(.39,.58,.57,1) 0.1s both;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .hero h1 {
+            font-size: 3.8em;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--accent1) 30%, var(--accent2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 18px;
+            letter-spacing: 2.5px;
+        }
+        .hero-desc {
+            font-size: 1.45em;
+            color: var(--accent1);
+            margin-bottom: 32px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .cta-btn {
+            display: inline-block;
+            margin: 0 auto 0 auto;
+            padding: 20px 48px;
+            font-size: 1.22em;
+            font-weight: 700;
+            color: #23272e;
+            background: linear-gradient(90deg, var(--accent1) 30%, var(--accent2) 100%);
+            border: none;
+            border-radius: 36px;
+            box-shadow: 0 2px 16px rgba(255,110,110,0.13);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            letter-spacing: 1px;
+            animation: popIn 1.2s cubic-bezier(.39,.58,.57,1) 0.3s both;
+        }
+        .cta-btn:hover {
+            background: linear-gradient(90deg, var(--accent2) 30%, var(--accent1) 100%);
+            color: #fff;
+            transform: scale(1.06);
+            box-shadow: 0 6px 32px rgba(255,110,110,0.18);
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .section {
+            max-width: 900px;
+            margin: 0 auto 64px auto;
+            padding: 0 24px;
+        }
+        .section-title {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--accent1);
+            margin-bottom: 18px;
+            letter-spacing: 1.2px;
+            text-align: center;
+        }
+        .features-row {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+        .feature-card {
+            background: var(--bg-glass);
+            border-radius: 22px;
+            box-shadow: 0 2px 24px rgba(255,110,110,0.10);
+            padding: 36px 28px 28px 28px;
+            flex: 1 1 260px;
+            min-width: 220px;
+            margin-bottom: 12px;
+            transition: box-shadow 0.2s, transform 0.2s, border 0.2s;
+            border: 1.5px solid rgba(255,179,87,0.13);
+            position: relative;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            text-align: center;
+            animation: fadeIn 1.2s cubic-bezier(.39,.58,.57,1) 0.2s both;
+        }
+        .feature-card:hover {
+            box-shadow: 0 8px 40px rgba(255,110,110,0.18);
+            transform: translateY(-4px) scale(1.035);
+            border: 1.5px solid var(--accent1);
+        }
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .how-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .how-step {
+            flex: 1 1 260px;
+            min-width: 220px;
+            background: var(--bg-glass);
+            border-radius: 18px;
+            padding: 28px 22px;
+            margin-bottom: 12px;
+            text-align: center;
+            box-shadow: 0 2px 16px rgba(255,110,110,0.10);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(255,179,87,0.10);
+        }
+        .how-step strong {
+            color: var(--accent2);
+            font-size: 1.1em;
+        }
+        .quickstart-row {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .quickstart-card {
+            background: var(--bg-glass);
+            border-radius: 16px;
+            padding: 22px 18px;
+            margin-bottom: 10px;
+            min-width: 180px;
+            text-align: center;
+            box-shadow: 0 1px 8px rgba(255,110,110,0.10);
+            font-size: 1.08em;
+            font-weight: 600;
+            color: var(--accent1);
+            border: 1.5px solid rgba(255,179,87,0.10);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+        .quickstart-card code {
+            background: #181c20;
+            color: var(--accent1);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 1.08em;
+            display: block;
+            margin-top: 8px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        .api-example {
+            background: var(--bg-glass);
+            border-radius: 14px;
+            padding: 22px 26px;
+            font-family: 'Fira Mono', 'Consolas', monospace;
+            color: var(--accent1);
+            font-size: 1.08em;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 10px rgba(0,0,0,0.13);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .api-example pre {
+            margin: 0;
+            overflow-x: auto;
+        }
+        .contact {
+            text-align: center;
+            margin-top: 32px;
+        }
+        .contact a {
+            color: var(--accent2);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+        .contact a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            margin-top: 64px;
+            font-size: 1.12em;
+            color: #b3a98c;
+            text-align: center;
+            letter-spacing: 1.2px;
+            padding-bottom: 32px;
+        }
+        .logo {
+            width: 160px;
+            max-width: 40vw;
+            margin-bottom: 24px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            filter: drop-shadow(0 2px 12px rgba(255, 179, 87, 0.33));
+        }
+        .illustration {
+            width: 100%;
+            max-width: 600px;
+            display: block;
+            margin: 0 auto 32px auto;
+            border-radius: 18px;
+            box-shadow: 0 2px 24px rgba(255, 179, 87, 0.13);
+        }
+        @media (max-width: 900px) {
+            .section { padding: 0 4vw; }
+            .features-row, .how-row, .quickstart-row { flex-direction: column; gap: 16px; }
+        }
+        @media (max-width: 600px) {
+            .section { padding: 0 3vw; }
+            .hero h1 { font-size: 2.8em; }
+            .hero-glass { padding: 36px 16px; border-radius: 24px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-glass, .cta-btn, .feature-card {
+                animation: none;
+            }
+            html, body {
+                scroll-behavior: auto;
+            }
+            .cta-btn:hover, .feature-card:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="hero">
+            <!-- Bakgrundsillustration med block042.svg inbyggd direkt i HTML för säkerhet -->
+            <svg class="hero-bg" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <!-- Bakgrundsfärg med gradient -->
+                <defs>
+                    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#181c20" />
+                        <stop offset="100%" stop-color="#23272e" />
+                    </linearGradient>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#bgGradient)"/>
+                
+                <!-- Blockchain pattern -->
+                <g stroke="#ffb357" stroke-width="1.5" fill="none" opacity="0.3">
+                    <!-- Horisontella block (överst) -->
+                    <rect x="100" y="100" width="180" height="90" rx="5" />
+                    <rect x="350" y="100" width="180" height="90" rx="5" />
+                    <rect x="600" y="100" width="180" height="90" rx="5" />
+                    <rect x="850" y="100" width="180" height="90" rx="5" />
+                    
+                    <!-- Mittenraden med block -->
+                    <rect x="200" y="250" width="180" height="90" rx="5" />
+                    <rect x="450" y="250" width="180" height="90" rx="5" />
+                    <rect x="700" y="250" width="180" height="90" rx="5" />
+                    
+                    <!-- Undre raden med block -->
+                    <rect x="100" y="400" width="180" height="90" rx="5" />
+                    <rect x="350" y="400" width="180" height="90" rx="5" />
+                    <rect x="600" y="400" width="180" height="90" rx="5" />
+                    <rect x="850" y="400" width="180" height="90" rx="5" />
+                    
+                    <!-- Nedersta raden -->
+                    <rect x="200" y="550" width="180" height="90" rx="5" />
+                    <rect x="450" y="550" width="180" height="90" rx="5" />
+                    <rect x="700" y="550" width="180" height="90" rx="5" />
+                    
+                    <!-- Anslutningar i första kolumnen -->
+                    <line x1="190" y1="190" x2="190" y2="250" />
+                    <line x1="190" y1="340" x2="190" y2="400" />
+                    <line x1="190" y1="490" x2="190" y2="550" />
+                    
+                    <!-- Anslutningar i andra kolumnen -->
+                    <line x1="440" y1="190" x2="440" y2="250" />
+                    <line x1="440" y1="340" x2="440" y2="400" />
+                    <line x1="440" y1="490" x2="440" y2="550" />
+                    
+                    <!-- Anslutningar i tredje kolumnen -->
+                    <line x1="690" y1="190" x2="690" y2="250" />
+                    <line x1="690" y1="340" x2="690" y2="400" />
+                    <line x1="690" y1="490" x2="690" y2="550" />
+                    
+                    <!-- Anslutningar i fjärde kolumnen -->
+                    <line x1="940" y1="190" x2="940" y2="400" />
+                    
+                    <!-- Horisontella anslutningar första raden -->
+                    <line x1="280" y1="145" x2="350" y2="145" />
+                    <line x1="530" y1="145" x2="600" y2="145" />
+                    <line x1="780" y1="145" x2="850" y2="145" />
+                    
+                    <!-- Horisontella anslutningar andra raden -->
+                    <line x1="380" y1="295" x2="450" y2="295" />
+                    <line x1="630" y1="295" x2="700" y2="295" />
+                    
+                    <!-- Horisontella anslutningar tredje raden -->
+                    <line x1="280" y1="445" x2="350" y2="445" />
+                    <line x1="530" y1="445" x2="600" y2="445" />
+                    <line x1="780" y1="445" x2="850" y2="445" />
+                    
+                    <!-- Horisontella anslutningar fjärde raden -->
+                    <line x1="380" y1="595" x2="450" y2="595" />
+                    <line x1="630" y1="595" x2="700" y2="595" />
+                    
+                    <!-- Noder/Punkter -->
+                    <circle cx="190" cy="145" r="6" fill="#ffb357" opacity="0.7" />
+                    <circle cx="440" cy="145" r="6" fill="#ffb357" opacity="0.7" />
+                    <circle cx="690" cy="145" r="6" fill="#ffb357" opacity="0.7" />
+                    <circle cx="940" cy="145" r="6" fill="#ffb357" opacity="0.7" />
+                    
+                    <circle cx="290" cy="295" r="6" fill="#ffb357" opacity="0.7" />
+                    <circle cx="540" cy="295" r="6" fill="#ffb357" opacity="0.7" />
+                    <circle cx="790" cy="295" r="6" fill="#ffb357" opacity="0.7" />
+                    
+                    <circle cx="190" cy="445" r="6" fill="#ffb357" opacity="0.7" />
+                    <circle cx="440" cy="445" r="6" fill="#ffb357" opacity="0.7" />
+                    <circle cx="690" cy="445" r="6" fill="#ffb357" opacity="0.7" />
+                    <circle cx="940" cy="445" r="6" fill="#ffb357" opacity="0.7" />
+                    
+                    <circle cx="290" cy="595" r="6" fill="#ffb357" opacity="0.7" />
+                    <circle cx="540" cy="595" r="6" fill="#ffb357" opacity="0.7" />
+                    <circle cx="790" cy="595" r="6" fill="#ffb357" opacity="0.7" />
+                </g>
+            </svg>
+            
+            <div class="hero-bg-decor" aria-hidden="true"></div>
+            <div class="hero-bg-decor2" aria-hidden="true"></div>
+            <div class="hero-glass">
+                <!-- OTRUST Logo baserad på bilden du delade -->
+                <svg class="logo" width="160" height="160" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="OTRUST logo">
+                    <defs>
+                        <!-- Gradient for the globe -->
+                        <linearGradient id="globeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#F8C78E" />
+                            <stop offset="33%" stop-color="#F5A657" />
+                            <stop offset="66%" stop-color="#E76134" />
+                            <stop offset="100%" stop-color="#B43A21" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- Outer triangle -->
+                    <path d="M30,140 L100,30 L170,140 L30,140 Z" fill="none" stroke="#5C2E21" stroke-width="8" />
+                    
+                    <!-- Two curved semi-circles around the triangle -->
+                    <path d="M45,125 A65,65 0 0,1 155,125" fill="none" stroke="#5C2E21" stroke-width="6" />
+                    <path d="M35,125 A80,80 0 0,1 165,125" fill="none" stroke="#5C2E21" stroke-width="6" />
+                    
+                    <!-- Globe in the middle with grid lines -->
+                    <circle cx="100" cy="100" r="40" fill="url(#globeGradient)" stroke="#5C2E21" stroke-width="4" />
+                    
+                    <!-- Vertical grid lines -->
+                    <path d="M100,60 L100,140" fill="none" stroke="#5C2E21" stroke-width="4" />
+                    <path d="M80,63 L80,137" fill="none" stroke="#5C2E21" stroke-width="4" />
+                    <path d="M120,63 L120,137" fill="none" stroke="#5C2E21" stroke-width="4" />
+                    <path d="M60,72 L60,128" fill="none" stroke="#5C2E21" stroke-width="4" />
+                    <path d="M140,72 L140,128" fill="none" stroke="#5C2E21" stroke-width="4" />
+                    
+                    <!-- Horizontal grid lines -->
+                    <path d="M60,80 L140,80" fill="none" stroke="#5C2E21" stroke-width="4" />
+                    <path d="M60,100 L140,100" fill="none" stroke="#5C2E21" stroke-width="4" />
+                    <path d="M60,120 L140,120" fill="none" stroke="#5C2E21" stroke-width="4" />
+                </svg>
+                
+                <h1>OTRUST</h1>
+                <div class="hero-desc">Distributed Truth Protocol · 2025<br>Verifiable. Transparent. Community-driven.</div>
+                <a href="#quickstart" class="cta-btn">Get Started</a>
+            </div>
+        </section>
+        <section class="section">
+            <h2 class="section-title">What is OTRUST?</h2>
+            <p style="text-align:center;max-width:700px;margin:0 auto 32px auto;font-size:1.18em;line-height:1.7;">
+                OTRUST is a distributed protocol for verifiable truth. With cryptographically signed claims, traceability, and open source code, OTRUST enables a network where facts can be verified and trusted – by everyone.
+            </p>
+        </section>
+        <section class="section">
+            <h2 class="section-title">Core Features</h2>
+            <div class="features-row">
+                <div class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ffb357" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                    </div>
+                    <b>Open Source</b><br>
+                    Community-driven, MIT-licensed, and transparent by design.
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ff6e6e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="7" rx="2"></rect><path d="M16 11V7a4 4 0 0 0-8 0v4"></path></svg>
+                    </div>
+                    <b>Verifiable Claims</b><br>
+                    Cryptographically signed, tamper-proof, and traceable facts.
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ffb357" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="7" width="5" height="10" rx="2.5"></rect><rect x="18" y="7" width="5" height="10" rx="2.5"></rect><rect x="8.5" y="2" width="7" height="20" rx="3.5"></rect></svg>
+                    </div>
+                    <b>Lightweight Blockchain</b><br>
+                    Efficient, scalable, and easy to integrate for developers.
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ffb357" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-6"></path><path d="M6 20v-4"></path><path d="M18 20v-2"></path></svg>
+                    </div>
+                    <b>Reputation System</b><br>
+                    Trust is built through verified actions and reputation.
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <h2 class="section-title">How Does It Work?</h2>
+            <div class="how-row">
+                <div class="how-step">
+                    <strong>1. Create Claim</strong><br>
+                    A user or organization creates a claim in OTRUST's format.
+                </div>
+                <div class="how-step">
+                    <strong>2. Sign &amp; Publish</strong><br>
+                    The claim is cryptographically signed and published to the network.
+                </div>
+                <div class="how-step">
+                    <strong>3. Verify &amp; Trace</strong><br>
+                    Others can verify the signature and trace the origin and context.
+                </div>
+            </div>
+        </section>
+        <section class="section" id="quickstart">
+            <h2 class="section-title">Get Started</h2>
+            <div class="quickstart-row">
+                <div class="quickstart-card">
+                    <b>NPM</b>
+                    <code>npm install -g otrust</code>
+                </div>
+                <div class="quickstart-card">
+                    <b>Docker</b>
+                    <code>docker pull otrust/otrust:latest</code>
+                </div>
+                <div class="quickstart-card">
+                    <b>GitHub</b>
+                    <code>git clone https://github.com/otrust-eu/otrust.git</code>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <h2 class="section-title">Example of a Verifiable Claim</h2>
+            <div class="api-example">
+<pre>{
+  "subject": "Gothenburg",
+  "predicate": "has_population",
+  "object": "587,549",
+  "context": {
+    "source": "https://www.scb.se/...",
+    "timestamp": "2023-01-01T00:00:00Z"
+  },
+  "signature": "EdjeWF9FSd..."
+}</pre>
+            </div>
+        </section>
+        <section class="section contact">
+            <h2 class="section-title">Contact</h2>
+            <div>Email: <a href="mailto:kris@otrust.eu" rel="noopener noreferrer">kris@otrust.eu</a></div>
+            <div style="margin-top:10px;">GitHub: <a href="https://github.com/otrust-eu" target="_blank" rel="noopener noreferrer">otrust-eu</a></div>
+            <div>Web: <a href="https://otrust.eu" target="_blank" rel="noopener noreferrer">otrust.eu</a></div>
+        </section>
+    </main>
+    <footer class="footer">
+        &copy; 2025 OTRUST. All content is open source.<br>
+        "A future where truth can be verified."
+    </footer>
+</body>
+</html>
