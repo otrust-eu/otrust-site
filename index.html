@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; frame-ancestors 'none';">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; frame-ancestors 'none'; form-action 'self';">
     <meta name="referrer" content="no-referrer">
     <meta name="description" content="OTRUST - a distributed protocol for verifiable truth. With cryptographically signed claims, traceability and open source.">
     <meta name="theme-color" content="#181c20">
     <title>OTRUST – Distributed Truth Protocol</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" integrity="sha384-1X9JQEhNNzwGKOF3NUULCQZo6DTSrggGV7GFTD5G0GfZpqEXSZHeMRfTKRKvAy/+" crossorigin="anonymous">
     <style>
         :root {
             --accent1: #ffb357;
@@ -94,13 +94,14 @@
         .hero h1 {
             font-size: 3.8em;
             font-weight: 800;
-            background: linear-gradient(90deg, var(--accent1) 30%, var(--accent2) 100%);
+            margin-bottom: 18px;
+            letter-spacing: 2.5px;
+            color: var(--accent1);
+            background-image: linear-gradient(90deg, var(--accent1) 30%, var(--accent2) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             color: transparent;
-            margin-bottom: 18px;
-            letter-spacing: 2.5px;
         }
         .hero-desc {
             font-size: 1.45em;
